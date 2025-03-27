@@ -1,13 +1,38 @@
-/* Google fonts orbitron */
-
-.orbitron-text {
-    font-family: "Orbitron", sans-serif;
-    font-weight: 400;
-  }
-
 /*Asterisk wildcard selector to override default styles added*/
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
+
+/* Applying Orbitron font to the entire page */
+html, body {
+    font-family: "Orbitron", sans-serif !important;
+}
+
+/* Center the form */
+#user-info {
+    margin: auto;
+}
+
+/*Media query: tablets (768px and up)*/
+@media (min-width: 768px) {
+    #user-info {
+        max-width: 70%; 
+    }
+}
+
+/*Media query: (laptops 992px and up)*/
+@media (min-width: 992px) { 
+    #user-info {
+        max-width: 50%; 
+    }
+}
+
+/*Media query: (laptops 1200px and up)*/
+@media (min-width: 1200px) { 
+    #user-info {
+        max-width: 50%; 
+    }
+}
+
