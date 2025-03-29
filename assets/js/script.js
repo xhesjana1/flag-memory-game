@@ -7,6 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // 8 Unique Flags 
     const flagImages = [
         "albania.jpg", "newzealand.png", "australia.png", "cambodia.png",
-        "palestine.webp", "ireland.png", "italy.png", "kosovo.png"
+        "palestine.webp", "ireland.png", "italy.png", "kosovo.png",
     ];
-}
+
+    // Duplicating flags to create pairs
+    let cards = [...flagImages, ...flagImages]
+    console.log(cards);
+});
