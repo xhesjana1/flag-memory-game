@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "palestine.webp": "Flag of Palestine",
         "ireland.png": "Flag of Ireland",
         "italy.png": "Flag of Italy",
-        "kosovo.png": "Flag of Kosovo"
+        "kosovo.png": "Flag of Kosovo",
     };
 
     // Loop through the cards array and create image elements
@@ -59,4 +59,27 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Error: cardsArea is null. Cannot append images.");
         }
     });
+
+let firstCard, secondCard;
+    let lockBoard = false;
+    let score = 0;
+
+    document.querySelector(".score"). textContent = score;
+
+    function flipCard(card) {
+        if (lockBoard || card === firstCard) return;
+
+        card.classList.add("flipped");
+
+        if (!firstCard) {
+            firstCard = card;
+        } else {
+            secondCard = card;
+            lockBoard = true;
+            flips++;
+            flipsDisplay.textContent = flips;
+
+            checkForMatch();
+        }
+    }
 });
