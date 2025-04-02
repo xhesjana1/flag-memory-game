@@ -3,6 +3,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     const cardsArea = document.getElementById("cards-area");
+    const scoreDisplay = document.getElementById("score");
 
     if (!cardsArea) {
         console.error("Error: 'cards-area' element not found in the DOM!");
@@ -18,8 +19,15 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     // Duplicate flags to create pairs
-    let cards = [...flagImages, ...flagImages];
+    let cards = [];
 
+function shuffle(cards) {
+    for (let allCards = cards.length - 1; allCards > 0; allCards--) {
+        const card = Math.floor(Math.random()* (allCards +1 ));
+        [cards[allCards], cards[card]] = [cards[card], cards[allCards]];
+}
+return cards;
+}
     // Manually add alt text for each flag
     const altTextMap = {
         "albania.jpg": "Flag of Albania",
@@ -31,6 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "italy.png": "Flag of Italy",
         "kosovo.png": "Flag of Kosovo",
     };
+
+    cards = shuffle ([...flagImages, ...flagImages]);
 
     // Loop through the cards array and create image elements
     cards.forEach(flag => {
@@ -82,4 +92,5 @@ let firstCard, secondCard;
             checkForMatch();
         }
     }
+
 });
