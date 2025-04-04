@@ -7,8 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const resetButton = document.getElementById("reset-button");
     const flipsDisplay = document.getElementById("flips");
     const flipsStream = document.querySelector("#flips");
+    const timerElement = document.getElementById('timer');
     let flips = 0;
     let countdownTimerId;
+    let count = parseInt(timerElement.innerText);
+    let timerStarted = false;
 
     if (!cardsArea) {
         console.error("Error: 'cards-area' element not found in the DOM!");
@@ -113,13 +116,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         });
-
-        startCountdown();
     }
 
     function flipCard(card) {
         if (lockBoard || card === firstCard || card.classList.contains("matched")) return;
-
+        if (!timerStarted) {
+            startCountdown();
+            timerStarted = true;
+        }
         card.classList.add("flipped");
 
         if (!firstCard) {
@@ -180,6 +184,10 @@ document.addEventListener("DOMContentLoaded", () => {
         lockBoard = false;
         flips = 0;
         clearInterval(countdownTimerId);
+        flipsDisplay.innerText = flips
+        count = 50;
+        timerElement.innerText = count;
+        timerStarted = false;
     }
 
     resetButton.addEventListener("click", resetGame);
@@ -188,13 +196,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Starts a countdown timer that decreases every second. Ends the game when time runs out
     function startCountdown() {
-        let timerElement = document.getElementById('timer');
-        let count = parseInt(timerElement.innerText);
-        countdownTimerId = setInterval(function () {
+            countdownTimerId = setInterval(function () {
             count--;
             timerElement.innerText = count;
             if (count === 0 || score === 8) {
                 clearInterval(countdownTimerId);
+                timerElement.innerText = 0;
                 GameOver();
             }
         }, 1000);
