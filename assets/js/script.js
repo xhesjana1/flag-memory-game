@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const flipsDisplay = document.getElementById("flips");
     const flipsStream = document.querySelector("#flips");
     let flips = 0;
+    let countdownTimerId;
 
     if (!cardsArea) {
         console.error("Error: 'cards-area' element not found in the DOM!");
@@ -24,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let cards = [];
 
-     // Loop through the array from the last element to the first
+    // Loop through the array from the last element to the first
     function shuffle(cards) {
         for (let allCards = cards.length - 1; allCards > 0; allCards--) {
             const card = Math.floor(Math.random() * (allCards + 1));
@@ -60,11 +61,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Keeps track of the player's score
     let score = 0;
 
-     /**
- * Clear the game board before creating new cards
- * Reset game state variables
- * Shuffle the flag images to randomize the game board
- */
+    /**
+* Clear the game board before creating new cards
+* Reset game state variables
+* Shuffle the flag images to randomize the game board
+*/
     function createBoard() {
         cardsArea.innerHTML = '';
         firstCard = null;
@@ -80,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.warn("Warning: A flag entry is missing.");
                 return;
             }
-        // Creates a memory card container, adds classes, sets a flag image, and associates the flag data with the card element.
+            // Creates a memory card container, adds classes, sets a flag image, and associates the flag data with the card element.
             const cardContainer = document.createElement("div");
             cardContainer.classList.add("col", "position-relative");
             const card = document.createElement("div");
@@ -99,14 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             console.log(`Adding flag: ${flag} with alt: ${imgElement.alt}`);
 
-            // Check if images are being appended correctly
-            // if (cardsArea) {
-            //     cardsArea.appendChild(imgElement);
-            //     console.log(`Flag added successfully: ${flag}`);
-            // } else {
-            //     console.error("Error: cardsArea is null. Cannot append images.");
-            // }
-
             const back = document.createElement("div");
             back.classList.add("back-face");
             back.innerText = "?";
@@ -120,6 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         });
+
+        startCountdown();
     }
 
     function flipCard(card) {
@@ -142,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Increases number of flips every time a user flips the cards
     const increaseFlips = () => {
         flips++;
-        flipsStream.innerText = flips;  
+        flipsStream.innerText = flips;
 
         increaseFlips();
     };
@@ -179,27 +174,36 @@ document.addEventListener("DOMContentLoaded", () => {
             unflipCards();
         }
     }
-    resetButton.addEventListener("click", createBoard);
+
+    function resetGame() {
+        createBoard();
+        lockBoard = false;
+        flips = 0;
+        clearInterval(countdownTimerId);
+    }
+
+    resetButton.addEventListener("click", resetGame);
 
     createBoard();
 
-// Starts a countdown timer that decreases every second. Ends the game when time runs out
+    // Starts a countdown timer that decreases every second. Ends the game when time runs out
     function startCountdown() {
         let timerElement = document.getElementById('timer');
         let count = parseInt(timerElement.innerText);
-        let countdownTimerId = setInterval(function () {
-          count--;
-          timerElement.innerText = count;
-          if (count === 0 || score === 8) {
-            clearInterval(countdownTimerId);
-            GameOver();
-          }
+        countdownTimerId = setInterval(function () {
+            count--;
+            timerElement.innerText = count;
+            if (count === 0 || score === 8) {
+                clearInterval(countdownTimerId);
+                GameOver();
+            }
         }, 1000);
-      }
+    }
 
     // Function to handle Game Over state
     function GameOver() {
-    alert("Game Over!"); 
-}
+        lockBoard = true;
+        alert("Game Over!");
+    }
 
 });
