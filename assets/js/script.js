@@ -183,4 +183,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     createBoard();
 
+// Starts a countdown timer that decreases every second. Ends the game when time runs out
+    function startCountdown() {
+        let timerElement = document.getElementById('timer');
+        let count = parseInt(timerElement.innerText);
+        let countdownTimerId = setInterval(function () {
+          count--;
+          timerElement.innerText = count;
+          if (count === 0 || score === 8) {
+            clearInterval(countdownTimerId);
+            GameOver();
+          }
+        }, 1000);
+      }
+
+    // Function to handle Game Over state
+    function GameOver() {
+    alert("Game Over!"); 
+}
+
 });
