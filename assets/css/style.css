@@ -37,8 +37,8 @@ color: aliceblue;
 }
 
 .memory-card {
-    width: 100px;
-    height: 100px;
+    width: 130px;
+    height: 180px;
     perspective: 1000px;
     position: relative;
     cursor: pointer;
@@ -56,7 +56,10 @@ color: aliceblue;
 
 .front-face {
     transform: rotateY(180deg);
-    object-fit: contain;    
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
 }
 
 .back-face {
@@ -66,6 +69,7 @@ color: aliceblue;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: transparent;
 }
 
 .memory-card.flipped .front-face {
