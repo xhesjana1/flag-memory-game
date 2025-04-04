@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const scoreDisplay = document.getElementById("score");
     const resetButton = document.getElementById("reset-button");
     const flipsDisplay = document.getElementById("flips");
+    const flipsStream = document.querySelector("#flips");
+    let flips = 0;
 
     if (!cardsArea) {
         console.error("Error: 'cards-area' element not found in the DOM!");
@@ -20,16 +22,19 @@ document.addEventListener("DOMContentLoaded", () => {
         "palestine.webp", "ireland.png", "italy.png", "kosovo.png"
     ];
 
-    // Duplicate flags to create pairs
     let cards = [];
 
+     // Loop through the array from the last element to the first
     function shuffle(cards) {
         for (let allCards = cards.length - 1; allCards > 0; allCards--) {
             const card = Math.floor(Math.random() * (allCards + 1));
             [cards[allCards], cards[card]] = [cards[card], cards[allCards]];
         }
+
+        // Return the shuffled array
         return cards;
     }
+
     // Manually add alt text for each flag
     const altTextMap = {
         "albania.jpg": "Flag of Albania",
@@ -42,13 +47,24 @@ document.addEventListener("DOMContentLoaded", () => {
         "kosovo.png": "Flag of Kosovo",
     };
 
+    //duplicates the flagImages array ensuring each flag appears twice
     cards = shuffle([...flagImages, ...flagImages]);
 
+    // Variables to track the first and second selected cards
     let firstCard = null;
     let secondCard = null;
+
+    // Prevents more than two cards from being flipped at the same time
     let lockBoard = false;
+
+    // Keeps track of the player's score
     let score = 0;
 
+     /**
+ * Clear the game board before creating new cards
+ * Reset game state variables
+ * Shuffle the flag images to randomize the game board
+ */
     function createBoard() {
         cardsArea.innerHTML = '';
         firstCard = null;
@@ -58,12 +74,13 @@ document.addEventListener("DOMContentLoaded", () => {
         scoreDisplay.textContent = score;
         cards = shuffle([...flagImages, ...flagImages]);
 
-        // Loop through the cards array and create image elements
+        // This function iterates through the cards array to ensure all flag entries are valid.
         cards.forEach(flag => {
             if (!flag) {
                 console.warn("Warning: A flag entry is missing.");
                 return;
             }
+        // Creates a memory card container, adds classes, sets a flag image, and associates the flag data with the card element.
             const cardContainer = document.createElement("div");
             cardContainer.classList.add("col", "position-relative");
             const card = document.createElement("div");
@@ -121,6 +138,14 @@ document.addEventListener("DOMContentLoaded", () => {
             checkForMatch();
         }
     }
+
+    // Increases number of flips every time a user flips the cards
+    const increaseFlips = () => {
+        flips++;
+        flipsStream.innerText = flips;  
+
+        increaseFlips();
+    };
 
     //Unlocking the board 
     function resetBoard() {
