@@ -35,18 +35,28 @@ color: aliceblue;
     border-radius: 15px;
 }
 
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1%;
+    padding: 1rem;
+    grid-auto-rows: 1fr;
+    height: calc(100vh - 300px);
+    box-sizing: border-box;
+    grid-template-rows: repeat(4, 1fr);
+}   
+
 .justify-content-center {
     padding: 0.5rem;
 }
 
-.row-cols-4 {
-    gap: 3%;
-}
-
 .memory-card {
-    width: 100%;
+    width: 50%;
+    height: 100%;
+    position: relative;
     cursor: pointer;
-    aspect-ratio: 2 / 3;
+    aspect-ratio: unset;
+    perspective: 1000px;
 }
 
 .memory-card .front-face,
@@ -81,6 +91,17 @@ color: aliceblue;
 
 .memory-card.flipped .back-face {
     transform: rotateY(180deg);
+}
+
+/*Media query: tablets (320px and up)*/
+@media (min-width: 320px) {
+    #user-info {
+        max-width: 100%; 
+    }
+
+   .memory-card {
+        width: 100%;
+   }
 }
 
 /*Media query: tablets (768px and up)*/

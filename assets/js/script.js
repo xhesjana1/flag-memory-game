@@ -113,8 +113,6 @@ document.addEventListener("DOMContentLoaded", () => {
             cardsArea.appendChild(cardContainer);
 
             card.addEventListener("click", () => flipCard(card));
-
-
         });
     }
 
@@ -184,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
         lockBoard = false;
         flips = 0;
         clearInterval(countdownTimerId);
-        flipsDisplay.innerText = flips
+        flipsDisplay.innerText = flips;
         count = 50;
         timerElement.innerText = count;
         timerStarted = false;
