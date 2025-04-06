@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 8 Unique Flags
     const flagImages = [
-        "albania.jpg", "newzealand.png", "australia.png", "cambodia.png",
-        "palestine.webp", "ireland.png", "italy.png", "kosovo.png"
+        "albania.jpg", "portugal.png", "brazil.png", "cambodia.png",
+        "palestine.webp", "spain.png", "italy.png", "kosovo.png"
     ];
 
     let cards = [];
@@ -42,11 +42,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Manually add alt text for each flag
     const altTextMap = {
         "albania.jpg": "Flag of Albania",
-        "newzealand.png": "Flag of New Zealand",
-        "australia.png": "Flag of Australia",
+        "portugal.png": "Flag of portugal",
+        "brazil.png": "Flag of brazil",
         "cambodia.png": "Flag of Cambodia",
         "palestine.webp": "Flag of Palestine",
-        "ireland.png": "Flag of Ireland",
+        "spain.png": "Flag of Spain",
         "italy.png": "Flag of Italy",
         "kosovo.png": "Flag of Kosovo",
     };
